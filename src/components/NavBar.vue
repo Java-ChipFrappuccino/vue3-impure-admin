@@ -21,12 +21,18 @@
             >
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/test1" @click="addTab('test1')"
+            <RouterLink
+              class="nav-link"
+              to="/test1"
+              @click="handleTab('push', { title: 'test1', path: '/test1' })"
               >test1</RouterLink
             >
           </li>
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/test2" @click="addTab('test2')"
+            <RouterLink
+              class="nav-link"
+              to="/test2"
+              @click="handleTab('push', { title: 'test2', path: '/test2' })"
               >test2</RouterLink
             >
           </li>
@@ -42,13 +48,28 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <RouterLink class="dropdown-item" to="/test3">test3</RouterLink>
+                <RouterLink
+                  class="dropdown-item"
+                  to="/test3"
+                  @click="handleTab('push', { title: 'test3', path: '/test3' })"
+                  >test3</RouterLink
+                >
               </li>
               <li>
-                <RouterLink class="dropdown-item" to="/test4">test4</RouterLink>
+                <RouterLink
+                  class="dropdown-item"
+                  to="/test4"
+                  @click="handleTab('push', { title: 'test4', path: '/test4' })"
+                  >test4</RouterLink
+                >
               </li>
               <li>
-                <RouterLink class="dropdown-item" to="/test5">test5</RouterLink>
+                <RouterLink
+                  class="dropdown-item"
+                  to="/test5"
+                  @click="handleTab('push', { title: 'test5', path: '/test5' })"
+                  >test5</RouterLink
+                >
               </li>
             </ul>
           </li>
@@ -60,7 +81,7 @@
 
 <script setup lang="ts">
 import { useTabBarStore } from "@/stores/tabBar";
-const { addTab } = useTabBarStore();
+const { handleTab } = useTabBarStore();
 </script>
 
 <style scoped></style>
