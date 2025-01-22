@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is an test1 page</h1>
+    <h1>구글 맵</h1>
   </div>
 </template>
 

@@ -16,16 +16,16 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <RouterLink class="nav-link active" aria-current="page" to="/"
-              >Home</RouterLink
-            >
+            <RouterLink class="nav-link active" aria-current="page" to="/">{{
+              $t("navBar.home")
+            }}</RouterLink>
           </li>
           <li class="nav-item">
             <RouterLink
               class="nav-link"
-              to="/test1"
-              @click="handleTab('push', { title: 'test1', path: '/test1' })"
-              >test1</RouterLink
+              to="/map"
+              @click="handleTab('push', { title: 'map', path: '/map' })"
+              >{{ $t("navBar.map") }}</RouterLink
             >
           </li>
           <li class="nav-item">
@@ -33,7 +33,7 @@
               class="nav-link"
               to="/test2"
               @click="handleTab('push', { title: 'test2', path: '/test2' })"
-              >test2</RouterLink
+              >{{ $t("navBar.test2") }}</RouterLink
             >
           </li>
           <li class="nav-item dropdown">
@@ -44,7 +44,7 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              Dropdown link
+              {{ $t("navBar.dropDown") }}
             </a>
             <ul class="dropdown-menu">
               <li>
@@ -52,7 +52,7 @@
                   class="dropdown-item"
                   to="/test3"
                   @click="handleTab('push', { title: 'test3', path: '/test3' })"
-                  >test3</RouterLink
+                  >{{ $t("navBar.test3") }}</RouterLink
                 >
               </li>
               <li>
@@ -60,7 +60,7 @@
                   class="dropdown-item"
                   to="/test4"
                   @click="handleTab('push', { title: 'test4', path: '/test4' })"
-                  >test4</RouterLink
+                  >{{ $t("navBar.test4") }}</RouterLink
                 >
               </li>
               <li>
@@ -68,20 +68,71 @@
                   class="dropdown-item"
                   to="/test5"
                   @click="handleTab('push', { title: 'test5', path: '/test5' })"
-                  >test5</RouterLink
+                  >{{ $t("navBar.test5") }}</RouterLink
                 >
               </li>
             </ul>
           </li>
         </ul>
       </div>
+      <i class="bi bi-gear-fill" @click="drawer = true"></i>
+      <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+        <i style="font-size: 2rem" class="bi bi-translate"></i>
+        <div class="flex flex-wrap gap-4 items-center">
+          <el-select
+            @change="changeLanguage(value)"
+            v-model="value"
+            placeholder="Select"
+            style="width: 240px"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
+      </el-drawer>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { useTabBarStore } from "@/stores/tabBar";
+import { setLang, currentLang } from "@/locales/index";
+import { ref } from "vue";
 const { handleTab } = useTabBarStore();
+const drawer = ref(false);
+const value = ref(currentLang); // 현재 설정값을 넣어서 셀렉트에 현재 언어값이 나옴
+
+const options = [
+  {
+    value: "ko",
+    label: "한국어",
+  },
+  {
+    value: "ja",
+    label: "日本語",
+  },
+  {
+    value: "en",
+    label: "English",
+  },
+  {
+    value: "fr",
+    label: "Français",
+  },
+];
+
+const changeLanguage = (lang) => {
+  setLang(lang); // 언어 변경
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.bi-translate,
+.bi-gear-fill:hover {
+  cursor: pointer;
+}
+</style>

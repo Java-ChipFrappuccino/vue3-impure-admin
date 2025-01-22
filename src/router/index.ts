@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import Test1View from "@/views/test/Test1View.vue";
+import MapView from "@/views/test/MapView.vue";
 import Test2View from "@/views/test/Test2View.vue";
 import Test3View from "@/views/test/Test3View.vue";
 import Test4View from "@/views/test/Test4View.vue";
@@ -14,9 +14,15 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: "/test1",
-      name: "test1",
-      component: Test1View,
+      path: "/map",
+      name: "Map",
+      component: MapView,
+      meta: {
+        title: {
+          en: "Map",
+          ko: "지도",
+        },
+      },
     },
     {
       path: "/test2",

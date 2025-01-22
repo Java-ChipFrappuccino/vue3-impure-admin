@@ -17,6 +17,7 @@
           aria-current="page"
           :to="tab.path"
           >{{ tab.title }}
+
           <span @click.prevent="deleteTab('splice', tab)" class="isHover"
             >x</span
           ></RouterLink

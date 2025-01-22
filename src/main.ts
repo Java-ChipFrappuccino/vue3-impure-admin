@@ -1,7 +1,6 @@
 import "./assets/main.css";
 
 import { createApp } from "vue";
-import { createI18n } from "vue-i18n";
 import { createPinia } from "pinia";
 
 // 전역 css
@@ -18,23 +17,7 @@ import ko from "element-plus/es/locale/lang/ko";
 import "element-plus/dist/index.css";
 import App from "./App.vue";
 import router from "./router";
-
-const i18n = createI18n({
-  locale: "ja",
-  fallbackLocale: "en",
-  messages: {
-    en: {
-      message: {
-        hello: "hello world",
-      },
-    },
-    ja: {
-      message: {
-        hello: "こんにちは、世界",
-      },
-    },
-  },
-});
+import { i18n } from "@/locales/index"; // i18n 설정 가져오기
 
 const app = createApp(App);
 
