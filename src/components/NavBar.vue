@@ -1,5 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav
+    class="navbar navbar-expand-lg bg-body-tertiary"
+    :data-bs-theme="themeToggle ? 'dark' : ''"
+    style="background-color: red"
+  >
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
@@ -24,7 +28,13 @@
             <RouterLink
               class="nav-link"
               to="/map"
-              @click="handleTab('push', { title: 'map', path: '/map' })"
+              @click="
+                handleTab('push', {
+                  title:
+                    'map' /* 저장할때는 각 번역파일에서 공통으로 사용하는 키값으로 저장 */,
+                  path: '/map',
+                })
+              "
               >{{ $t("navBar.map") }}</RouterLink
             >
           </li>
@@ -76,12 +86,17 @@
         </ul>
       </div>
       <i class="bi bi-gear-fill" @click="drawer = true"></i>
-      <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+      <el-drawer
+        :style="themeToggle ? 'background-color: rgb(20, 20, 20);' : ''"
+        v-model="drawer"
+        title="I am the title"
+        :with-header="false"
+      >
         <i style="font-size: 2rem" class="bi bi-translate"></i>
         <div class="flex flex-wrap gap-4 items-center">
           <el-select
-            @change="changeLanguage(value)"
-            v-model="value"
+            @change="changeLanguage(currentLang)"
+            v-model="currentLang"
             placeholder="Select"
             style="width: 240px"
           >
@@ -92,6 +107,11 @@
               :value="item.value"
             />
           </el-select>
+        </div>
+        <div class="d-flex align-items-center">
+          <i style="font-size: 2rem" class="bi bi-brightness-low"></i>
+          <el-switch @change="changeTheme" v-model="themeToggle" />
+          <i style="font-size: 1.4rem" class="bi bi-moon ms-1"></i>
         </div>
       </el-drawer>
     </div>
@@ -104,7 +124,7 @@ import { setLang, currentLang } from "@/locales/index";
 import { ref } from "vue";
 const { handleTab } = useTabBarStore();
 const drawer = ref(false);
-const value = ref(currentLang); // 현재 설정값을 넣어서 셀렉트에 현재 언어값이 나옴
+// const value = ref(currentLang); // 현재 설정값을 넣어서 셀렉트에 현재 언어값이 나옴
 
 const options = [
   {
@@ -128,10 +148,20 @@ const options = [
 const changeLanguage = (lang) => {
   setLang(lang); // 언어 변경
 };
+
+const themeToggle = ref(false);
+const changeTheme = () => {
+  if (themeToggle.value) {
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+  } else {
+    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+  }
+};
 </script>
 
 <style scoped>
-.bi-translate,
 .bi-gear-fill:hover {
   cursor: pointer;
 }

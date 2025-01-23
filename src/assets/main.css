@@ -4,3 +4,22 @@
   font-family: 'Pretendard', Arial, 'Helvetica Neue', Helvetica, sans-serif;
   box-sizing: content-box;
 }
+
+/* 기본 테마 (라이트 모드) */
+body.light-mode {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+/* 다크 모드 */
+body.dark-mode {
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
+/* 전체에 적용될 CSS 변수 사용 */
+body {
+  background-color: var(--background-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s, color 0.3s; /* 부드러운 전환 효과 */
+}

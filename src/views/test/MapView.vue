@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <h1>구글 맵</h1>
-  </div>
+  <GoogleMap></GoogleMap>
 </template>
-
+<script setup lang="ts">
+import GoogleMap from "@/components/GoogleMap.vue";
+</script>
 <style></style>

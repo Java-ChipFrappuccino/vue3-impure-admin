@@ -1,6 +1,5 @@
 import { ref, computed, reactive } from "vue";
 import { defineStore } from "pinia";
-import { useI18n } from "vue-i18n";
 
 // 객체의 구조를 정의
 export type Tab = {
@@ -13,7 +12,6 @@ export type Tab = {
 //   id?: number;
 // }
 export const useTabBarStore = defineStore("tab-bar", () => {
-  const { t } = useI18n();
   const tabs = reactive<Tab[]>(
     JSON.parse(localStorage.getItem("tabs") || "[]")
   );
@@ -24,10 +22,9 @@ export const useTabBarStore = defineStore("tab-bar", () => {
   function handleTab(action: string, data: Tab) {
     switch (action) {
       case "push":
-        const translatedTitle = t("navBar." + data.title);
-        const exist = tabs.some((v) => v.title === translatedTitle); //현재 언어에 맞춰서 저장은 되지만 실시간으로 변동안됨 + 다른언어로 바꾸면 똑같은탭 또 들어감
+        const exist = tabs.some((v) => v.title === data.title); //현재 언어에 맞춰서 저장은 되지만 실시간으로 변동안됨 + 다른언어로 바꾸면 똑같은탭 또 들어감
         if (exist) return console.log("중복");
-        tabs.push({ title: translatedTitle, path: data.path });
+        tabs.push({ title: data.title, path: data.path });
         saveTabsToStorage(); // 변경 후 저장
         break;
       case "splice":
@@ -37,12 +34,5 @@ export const useTabBarStore = defineStore("tab-bar", () => {
         saveTabsToStorage(); // 변경 후 저장
     }
   }
-  // function addTab(data) {
-  //   tabs.push({ title: data });
-  // }
-  // function deleteTab(data: Tab) {
-  //   tabs.splice(data);
-  // }
-
   return { tabs, handleTab };
 });
