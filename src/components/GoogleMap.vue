@@ -143,6 +143,43 @@ function searchLocation() {
     }
   });
 }
+
+const fetchPlaceData = async () => {
+  const url = "https://places.googleapis.com/v1/places:searchText";
+  const apiKey = GOOGLE_MAP_API_KEY; // 여기에 API 키를 입력하세요.
+
+  const requestBody = {
+    textQuery: "마곡역 주변 중국집",
+  };
+
+  const headers = {
+    "Content-Type": "application/json",
+    "X-Goog-Api-Key": apiKey,
+    "X-Goog-FieldMask":
+      "places.displayName,places.formattedAddress,places.priceLevel",
+    languageCode: "ko",
+  };
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("Response data:", data);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+// 함수 호출
+fetchPlaceData();
 </script>
 
 <style scoped>
