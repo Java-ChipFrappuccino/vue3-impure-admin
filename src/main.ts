@@ -2,6 +2,7 @@ import "./assets/main.css";
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import ganttastic from "@infectoone/vue-ganttastic";
 
 // 전역 css
 import "./assets/main.css";
@@ -25,6 +26,7 @@ app.use(ElementPlus, {
   locale: ko,
 });
 app.use(i18n);
+app.use(ganttastic);
 app.use(createPinia());
 app.use(router);
 // app.use(ElementPlus);

@@ -1,23 +1,19 @@
 <template>
-  <nav
-    class="navbar navbar-expand-lg bg-body-tertiary"
-    :data-bs-theme="themeToggle ? 'dark' : ''"
-    style="background-color: red"
-  >
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
           <li class="nav-item">
             <RouterLink class="nav-link active" aria-current="page" to="/">{{
@@ -41,48 +37,43 @@
           <li class="nav-item">
             <RouterLink
               class="nav-link"
-              to="/test2"
-              @click="handleTab('push', { title: 'test2', path: '/test2' })"
-              >{{ $t("navBar.test2") }}</RouterLink
+              to="/puzzle"
+              @click="handleTab('push', { title: 'puzzle', path: '/puzzle' })"
+              >{{ $t("navBar.puzzle") }}</RouterLink
             >
           </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+
+          <li class="nav-item">
+            <RouterLink
+              class="nav-link"
+              to="/gantt-chart"
+              @click="
+                handleTab('push', {
+                  title: 'ganttChart',
+                  path: '/gantt-chart',
+                })
+              "
+              >{{ $t("navBar.ganttChart") }}</RouterLink
             >
-              {{ $t("navBar.dropDown") }}
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <RouterLink
-                  class="dropdown-item"
-                  to="/test3"
-                  @click="handleTab('push', { title: 'test3', path: '/test3' })"
-                  >{{ $t("navBar.test3") }}</RouterLink
-                >
-              </li>
-              <li>
-                <RouterLink
-                  class="dropdown-item"
-                  to="/test4"
-                  @click="handleTab('push', { title: 'test4', path: '/test4' })"
-                  >{{ $t("navBar.test4") }}</RouterLink
-                >
-              </li>
-              <li>
-                <RouterLink
-                  class="dropdown-item"
-                  to="/test5"
-                  @click="handleTab('push', { title: 'test5', path: '/test5' })"
-                  >{{ $t("navBar.test5") }}</RouterLink
-                >
-              </li>
-            </ul>
           </li>
+          <li class="nav-item">
+            <RouterLink
+              class="nav-link"
+              to="/test4"
+              @click="handleTab('push', { title: 'test4', path: '/test4' })"
+              >{{ $t("navBar.test4") }}</RouterLink
+            >
+          </li>
+          <li class="nav-item">
+            <RouterLink
+              class="nav-link"
+              to="/test5"
+              @click="handleTab('push', { title: 'test5', path: '/test5' })"
+              >{{ $t("navBar.test5") }}</RouterLink
+            >
+          </li>
+
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </ul>
       </div>
       <i class="bi bi-gear-fill" @click="drawer = true"></i>

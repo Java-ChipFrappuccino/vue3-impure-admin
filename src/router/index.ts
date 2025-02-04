@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import MapView from "@/views/test/MapView.vue";
-import Test2View from "@/views/test/Test2View.vue";
-import Test3View from "@/views/test/Test3View.vue";
+import GanttChart from "@/views/gantt-chart/index.vue";
+import Puzzle from "@/views/puzzle/index.vue";
 import Test4View from "@/views/test/Test4View.vue";
 import Test5View from "@/views/test/Test5View.vue";
 const router = createRouter({
@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       component: HomeView,
     },
     {
@@ -25,14 +25,14 @@ const router = createRouter({
       },
     },
     {
-      path: "/test2",
-      name: "test2",
-      component: Test2View,
+      path: "/puzzle",
+      name: "Puzzle",
+      component: Puzzle,
     },
     {
-      path: "/test3",
-      name: "test3",
-      component: Test3View,
+      path: "/gantt-chart",
+      name: "GanttChart",
+      component: GanttChart,
     },
     {
       path: "/test4",
