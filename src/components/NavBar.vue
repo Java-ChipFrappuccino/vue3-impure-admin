@@ -15,12 +15,21 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <RouterLink class="nav-link active" aria-current="page" to="/">{{
-              $t("navBar.home")
-            }}</RouterLink>
+          <li class="nav-item" v-for="menu in wholeMenus" :key="menu.path">
+            <RouterLink
+              class="nav-link"
+              aria-current="page"
+              :to="menu.path"
+              @click="
+                handleTab('push', {
+                  title: menu.meta.title as string,
+                  path: menu.path,
+                })
+              "
+              >{{ $t(menu.meta.title as string) }}</RouterLink
+            >
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <RouterLink
               class="nav-link"
               to="/map"
@@ -73,7 +82,7 @@
             >
           </li>
 
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
         </ul>
       </div>
       <i class="bi bi-gear-fill" @click="drawer = true"></i>
@@ -112,7 +121,10 @@
 <script setup lang="ts">
 import { useTabBarStore } from "@/stores/tabBar";
 import { setLang, currentLang } from "@/locales/index";
-import { ref } from "vue";
+import { ref, reactive } from "vue";
+import router from "@/router";
+
+const wholeMenus = reactive(router.getRoutes().splice(1)); // 첫번째는 홈이라서 제외
 const { handleTab } = useTabBarStore();
 const drawer = ref(false);
 // const value = ref(currentLang); // 현재 설정값을 넣어서 셀렉트에 현재 언어값이 나옴

@@ -6,7 +6,7 @@
         :class="isActive('/')"
         aria-current="page"
         to="/"
-        >{{ $t("navBar.home") }}</RouterLink
+        >{{ $t("menus.home") }}</RouterLink
       >
     </li>
     <TransitionGroup name="tabs">
@@ -16,7 +16,7 @@
           :class="isActive(tab.path)"
           aria-current="page"
           :to="tab.path"
-          >{{ $t("navBar." + tab.title) }}
+          >{{ $t(tab.title) }}
 
           <span @click.prevent="deleteTab('splice', tab)" class="isHover"
             >x</span

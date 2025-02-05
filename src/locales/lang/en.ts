@@ -1,12 +1,12 @@
 export default {
-  navBar: {
+  menus: {
     home: "Home",
     map: "Map",
     puzzle: "Puzzle",
     ganttChart: "Gantt chart",
     test4: "test4",
     test5: "test5",
-    dropDown: "...more",
+    newty: "newty",
   },
   puzzle: {
     rule: "Try sort in order!",

@@ -1,12 +1,12 @@
 export default {
-  navBar: {
+  menus: {
     home: "홈",
     map: "지도",
     puzzle: "퍼즐",
     ganttChart: "간츠 차트",
     test4: "테스트4",
     test5: "테스트5",
-    dropDown: "...더보기",
+    newty: "뉴티",
   },
   puzzle: {
     rule: "순서대로 정렬하세요!",
