@@ -15,11 +15,13 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
     "@infectoone/vue-ganttastic": "^2.3.2",
+    "@vueuse/core": "^12.5.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "element-plus": "^2.9.3",
     "nprogress": "^0.2.0",
     "pinia": "^2.3.0",
+    "typeit": "^8.8.7",
     "vue": "^3.5.13",
     "vue-i18n": "^10.0.5",
     "vue-router": "^4.5.0",

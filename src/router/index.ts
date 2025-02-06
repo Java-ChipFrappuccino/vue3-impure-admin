@@ -72,11 +72,16 @@ const router = createRouter({
 // 라우터 로딩 시 NProgress 사용
 router.beforeEach((to, from, next) => {
   NProgress.start(); // 로딩 시작
-  next();
+  // next();
+  // 비동기 작업 처리
+  setTimeout(() => {
+    next(); // 비동기 작업 후 라우트 이동
+    NProgress.done(); // 완료 시 로딩바 종료
+  }, 500); // 2초 후 이동
 });
 
-router.afterEach(() => {
-  NProgress.done(); // 로딩 완료
-});
+// router.afterEach(() => {
+//   NProgress.done(); // 로딩 완료
+// });
 
 export default router;
