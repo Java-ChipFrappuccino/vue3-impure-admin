@@ -2,6 +2,20 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
+      <div class="icon-container">
+        <i class="bi bi-person-circle"></i>
+        <el-badge
+          :value="Number(unReadNotification) === 0 ? '' : unReadNotification"
+          :max="99"
+        >
+          <span class="header-notice-icon">
+            <!-- 알림 아이콘 -->
+            <i class="bi bi-bell-fill"></i>
+          </span>
+        </el-badge>
+        <i class="bi bi-bell-slash-fill"></i>
+        <i class="bi bi-gear-fill" @click="drawer = true"></i>
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -85,7 +99,7 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
         </ul>
       </div>
-      <i class="bi bi-gear-fill" @click="drawer = true"></i>
+
       <el-drawer
         :style="themeToggle ? 'background-color: rgb(20, 20, 20);' : ''"
         v-model="drawer"
@@ -120,6 +134,7 @@
 
 <script setup lang="ts">
 import { useTabBarStore } from "@/stores/tabBar";
+import { useNotificationStore } from "@/stores/notification";
 import { setLang, currentLang } from "@/locales/index";
 import { ref, reactive } from "vue";
 import router from "@/router";
@@ -162,10 +177,24 @@ const changeTheme = () => {
     document.body.classList.remove("dark-mode");
   }
 };
+
+const { unReadNotification } = useNotificationStore();
 </script>
 
 <style scoped>
 .bi-gear-fill:hover {
   cursor: pointer;
+}
+.icon-container {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 20px;
+  i {
+    display: flex;
+    align-items: center;
+
+    margin-left: 8px;
+  }
 }
 </style>

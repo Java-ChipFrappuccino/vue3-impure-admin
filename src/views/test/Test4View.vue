@@ -1,42 +1,13 @@
 <template>
-  <el-button :plain="true" @click="openAlert('success')">Message</el-button>
+  <el-button :plain="true" @click="addNotification">notification</el-button>
 </template>
 
 <script lang="ts" setup>
-import { ElMessage } from "element-plus";
+import { useNotificationStore } from "@/stores/notification";
 
-const openAlert = (status: string) => {
-  switch (status) {
-    case "success":
-      ElMessage({
-        duration: 2000,
-        showClose: true,
-        message: "성공하였습니다.",
-        type: "success",
-      });
-      break;
-    case "warning":
-      ElMessage({
-        duration: 2000,
-        showClose: true,
-        message: "경고입니다.",
-        type: "warning",
-      });
-      break;
-    case "error":
-      ElMessage({
-        duration: 2000,
-        showClose: true,
-        message: "실패하였습니다.",
-        type: "error",
-      });
-      break;
-    default:
-      ElMessage({
-        duration: 2000,
-        showClose: true,
-        message: "일반알림입니다.",
-      });
-  }
-};
+const { unReadNotification } = useNotificationStore();
+
+function addNotification() {
+  unReadNotification.value += 1;
+}
 </script>
