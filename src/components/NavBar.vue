@@ -4,16 +4,46 @@
       <a class="navbar-brand" href="#">Navbar</a>
       <div class="icon-container">
         <i class="bi bi-person-circle"></i>
-        <el-badge
-          :value="Number(unReadNotification) === 0 ? '' : unReadNotification"
-          :max="99"
-        >
-          <span class="header-notice-icon">
-            <!-- 알림 아이콘 -->
-            <i class="bi bi-bell-fill"></i>
+        <el-dropdown trigger="click" placement="bottom-end">
+          <span style="font-size: 16px; color: black">
+            <el-badge
+              :value="unReadNotification === 0 ? '' : unReadNotification"
+              :max="99"
+            >
+              <span class="header-notice-icon">
+                <!-- 알림 아이콘 -->
+                <i class="bi bi-bell-fill"></i>
+              </span>
+            </el-badge>
           </span>
-        </el-badge>
-        <i class="bi bi-bell-slash-fill"></i>
+          <template #dropdown>
+            <el-empty
+              v-if="unReadNotification === 0"
+              style="width: 200px"
+              description="알림 없음"
+              :image-size="100"
+            />
+            <el-dropdown-menu v-else style="width: 200px">
+              <div
+                @click.prevent="markAllAsRead"
+                class="dropdown-item-all-read"
+              >
+                모두읽음
+              </div>
+              <router-link
+                v-for="noti in unReadNotification"
+                :key="noti"
+                :to="'/test4#' + noti"
+                @click.prevent="decreaseUnReadNotification"
+                style="text-decoration: none; display: block"
+              >
+                <el-dropdown-item divided> 알림 {{ noti }} </el-dropdown-item>
+              </router-link>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+
+        <!-- <i class="bi bi-bell-slash-fill"></i> -->
         <i class="bi bi-gear-fill" @click="drawer = true"></i>
       </div>
       <button
@@ -138,7 +168,10 @@ import { useNotificationStore } from "@/stores/notification";
 import { setLang, currentLang } from "@/locales/index";
 import { ref, reactive } from "vue";
 import router from "@/router";
+import { storeToRefs } from "pinia";
+import { getUnReadNotifications } from "@/api/notifications";
 
+const store = useNotificationStore();
 const wholeMenus = reactive(router.getRoutes().splice(1)); // 첫번째는 홈이라서 제외
 const { handleTab } = useTabBarStore();
 const drawer = ref(false);
@@ -177,8 +210,21 @@ const changeTheme = () => {
     document.body.classList.remove("dark-mode");
   }
 };
+const { resetUnReadNotification, decreaseUnReadNotification } = store;
+const { unReadNotification } = storeToRefs(store);
+const updateNotification = async () => {
+  // 비동기적으로 읽지 않은 알림 목록을 가져옴
+  const unreadPosts = await getUnReadNotifications();
 
-const { unReadNotification } = useNotificationStore();
+  // 읽지 않은 게시글의 갯수를 unReadNotification에 할당
+  unReadNotification.value = unreadPosts.length;
+};
+
+// 호출 시 updateNotification을 실행하여 갯수를 업데이트
+updateNotification();
+const markAllAsRead = () => {
+  resetUnReadNotification();
+};
 </script>
 
 <style scoped>
@@ -196,5 +242,13 @@ const { unReadNotification } = useNotificationStore();
 
     margin-left: 8px;
   }
+}
+.dropdown-item-all-read {
+  cursor: pointer;
+  padding: 4px;
+  text-align: center;
+  /* background-color: #f5f5f5; */
+  color: #9e9fa3;
+  font-weight: bold;
 }
 </style>

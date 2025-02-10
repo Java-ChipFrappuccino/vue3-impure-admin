@@ -4,7 +4,7 @@ export default {
     map: "지도",
     puzzle: "퍼즐",
     ganttChart: "간츠 차트",
-    test4: "테스트4",
+    test4: "알림창",
     test5: "테스트5",
     newty: "뉴티",
   },

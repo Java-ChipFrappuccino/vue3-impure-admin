@@ -4,7 +4,7 @@ export default {
     map: "Map",
     puzzle: "Puzzle",
     ganttChart: "Gantt chart",
-    test4: "test4",
+    test4: "Notification",
     test5: "test5",
     newty: "newty",
   },

@@ -9,6 +9,23 @@ import { defineStore } from "pinia";
 // };
 
 export const useNotificationStore = defineStore("notification", () => {
-  const unReadNotification = ref(5);
-  return { unReadNotification };
+  const unReadNotification = ref(0);
+
+  const increaseUnReadNotification = () => {
+    unReadNotification.value++;
+  };
+  const decreaseUnReadNotification = () => {
+    if (unReadNotification.value === 0) return;
+    unReadNotification.value--;
+  };
+  const resetUnReadNotification = () => {
+    unReadNotification.value = 0;
+  };
+
+  return {
+    unReadNotification,
+    increaseUnReadNotification,
+    decreaseUnReadNotification,
+    resetUnReadNotification,
+  };
 });

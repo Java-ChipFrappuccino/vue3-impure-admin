@@ -67,6 +67,16 @@ const router = createRouter({
       },
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // 해시가 있을 경우 해당 요소로 스크롤 이동
+    if (to.hash) {
+      return {
+        el: to.hash,
+      };
+    }
+    // 기본적으로는 페이지 맨 위로 스크롤
+    return { top: 0 };
+  },
 });
 
 // 라우터 로딩 시 NProgress 사용
