@@ -31,13 +31,13 @@
                 모두읽음
               </div>
               <router-link
-                v-for="noti in unReadNotification"
-                :key="noti"
-                :to="'/test4#' + noti"
-                @click.prevent="decreaseUnReadNotification"
+                v-for="noti in unReadNotificationPost"
+                :key="noti.id"
+                :to="'/test4#' + noti.id"
+                @click.prevent="readPost(noti.id)"
                 style="text-decoration: none; display: block"
               >
-                <el-dropdown-item divided> 알림 {{ noti }} </el-dropdown-item>
+                <el-dropdown-item divided>{{ noti.title }} </el-dropdown-item>
               </router-link>
             </el-dropdown-menu>
           </template>
@@ -169,7 +169,11 @@ import { setLang, currentLang } from "@/locales/index";
 import { ref, reactive } from "vue";
 import router from "@/router";
 import { storeToRefs } from "pinia";
-import { getUnReadNotifications } from "@/api/notifications";
+import {
+  getUnReadNotifications,
+  readNotification,
+  readAllNotifications,
+} from "@/api/notifications";
 
 const store = useNotificationStore();
 const wholeMenus = reactive(router.getRoutes().splice(1)); // 첫번째는 홈이라서 제외
@@ -211,19 +215,31 @@ const changeTheme = () => {
   }
 };
 const { resetUnReadNotification, decreaseUnReadNotification } = store;
-const { unReadNotification } = storeToRefs(store);
+const { unReadNotification, unReadNotificationPost } = storeToRefs(store);
+// const unreadPosts = ref([]);
 const updateNotification = async () => {
   // 비동기적으로 읽지 않은 알림 목록을 가져옴
-  const unreadPosts = await getUnReadNotifications();
+  unReadNotificationPost.value = await getUnReadNotifications();
 
   // 읽지 않은 게시글의 갯수를 unReadNotification에 할당
-  unReadNotification.value = unreadPosts.length;
+  unReadNotification.value = unReadNotificationPost.value.length;
+  // unReadNotificationPost.value = unreadPosts.value;
 };
 
 // 호출 시 updateNotification을 실행하여 갯수를 업데이트
 updateNotification();
-const markAllAsRead = () => {
+// unreadPosts.value = unReadNotificationPost.value;
+
+const markAllAsRead = async () => {
+  await readAllNotifications();
+  unReadNotificationPost.value = [];
   resetUnReadNotification();
+};
+
+const readPost = async (postId: number) => {
+  await readNotification(postId); // make this await for consistency
+  // decreaseUnReadNotification(); // uncomment if you want to decrease the count
+  await updateNotification(); // ensure to await updateNotification for proper sequencing
 };
 </script>
 

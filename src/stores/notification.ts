@@ -9,7 +9,8 @@ import { defineStore } from "pinia";
 // };
 
 export const useNotificationStore = defineStore("notification", () => {
-  const unReadNotification = ref(0);
+  const unReadNotificationPost = ref([]);
+  const unReadNotification = ref(unReadNotificationPost.value.length); // 읽지 않은 알림 수
 
   const increaseUnReadNotification = () => {
     unReadNotification.value++;
@@ -24,6 +25,7 @@ export const useNotificationStore = defineStore("notification", () => {
 
   return {
     unReadNotification,
+    unReadNotificationPost,
     increaseUnReadNotification,
     decreaseUnReadNotification,
     resetUnReadNotification,
