@@ -18,6 +18,7 @@
     <p>{{ post.content }}</p>
     <template #footer>Footer content</template>
   </el-card>
+  <el-button class="tt">tt</el-button>
 </template>
 
 <script lang="ts" setup>
@@ -52,3 +53,12 @@ const addNoti = (config) => {
   ElNotification({ ...config, position: "bottom-right", duration: 2000 });
 };
 </script>
+
+<style scoped>
+.tt {
+  background-color: black;
+  height: 200px;
+  color: white;
+  border-radius: 100%;
+}
+</style>
